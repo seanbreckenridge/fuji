@@ -20,6 +20,7 @@ optional arguments:
 ```
 
 An example execution, that hides selenium and opens the login page after completion: 
+
 `python3 driver.py --hidden -oc /usr/local/bin/chromedriver`
 
 Output:
@@ -31,7 +32,7 @@ UngyveLugVentersPelotaGogos518@mailinator.com
 ```
 
 
-##### Selenium Instructions
+### Selenium Instructions
 
 For Windows, download ChromeDriver from [here](https://sites.google.com/a/chromium.org/chromedriver/downloads), and put the path on command line (escape backslashes):
 
