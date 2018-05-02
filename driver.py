@@ -113,7 +113,11 @@ def fuji_register(driver, email_address, password, hide):
 
     form_input.find_element_by_id("agree").click()
     wait()
-    form_input.find_element_by_css_selector(".btn.btn-success").click()
+    submit_button = WebDriverWait(driver, 20).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, '#regform > div > div > button.btn-success'))
+    )
+    wait()
+    submit_button.click()
     wait_for_alert = WebDriverWait(driver, 20)
     wait_for_alert.until(EC.alert_is_present())
     alert = driver.switch_to_alert()
