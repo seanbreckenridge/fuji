@@ -48,6 +48,6 @@ ChromeDriver location should be `/usr/local/bin/chromedriver` if installed with 
 
 Mac with [brew](https://brew.sh/):
 
-`sudo brew install chromedriver`
+`brew install chromedriver`
 
 Located at `/usr/local/bin/chromedriver`
