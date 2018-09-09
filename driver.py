@@ -22,31 +22,31 @@ def wait():
 
 
 def enter_text_slow(box, text):
-    """Enter text slow; Fuji fails to work if send_keys is done all at once."""
+    """Enter text slow; ForJoy fails to work if send_keys is done all at once."""
     for c in text:
         box.send_keys(c)
         wait()
 
 
-def valid_fuji(el):
-    """Checks if the given email element is a valid fuji email; its from Fuji and was recieved recently."""
+def valid_email(el):
+    """Checks if the given email element is a valid email - its from ForJoyTV and was recieved recently."""
     subject_text = el.find_element_by_css_selector("div.all_message-min > div.all_message-min_text").text
     time_ago = el.find_element_by_css_selector(".all_message-min_datte").text
-    if 'Fujitv.live' in subject_text:
+    if 'ForJoyTV.com' in subject_text:
         return "minute" in time_ago or time_ago == "moments ago"
     return False
 
 
-def find_fuji_activation(driver):
-    """Finds the fuji activation email."""
+def find_forjoy_activation(driver):
+    """Finds the ForJoy activation email."""
     try:
         # Wait for emails to load in
         WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CLASS_NAME, "all_message-min_text")))
     except:
         return []
     emails = driver.find_elements_by_css_selector("li.all_message-item")
-    fuji_emails = list(filter(valid_fuji, emails))
-    return fuji_emails
+    forjoy_emails = list(filter(valid_email, emails))
+    return forjoy_emails
 
 
 def get_iframe_contents(driver):
@@ -80,12 +80,12 @@ def confirm_email(driver, mailinator_account_url, hide):
     """Goes to mailinator, finds the activation email and activates the account."""
 
     driver.get(mailinator_account_url)
-    fuji = find_fuji_activation(driver)
-    if len(fuji) == 0:
-        print("Couldn't find an email from Fuji... ")
+    forjoy = find_forjoy_activation(driver)
+    if len(forjoy) == 0:
+        print("Couldn't find an email from ForJoyTV... ")
         return False
-    fuji_email = fuji.pop(0)
-    fuji_email.click()
+    forjoy_email = forjoy.pop(0)
+    forjoy_email.click()
     contents = wait_for_message(driver)
     if wait_for_message is None:
         print("Couldn't find message contents...")
@@ -95,12 +95,12 @@ def confirm_email(driver, mailinator_account_url, hide):
     return True
 
 
-def fuji_register(driver, email_address, password, hide):
-    """Registers on Fuji with a random username and password."""
+def forjoy_register(driver, email_address, password, hide):
+    """Registers on ForJoyTV with a random username and password."""
 
-    fuji_register_page = r"https://fujitv.live/register"
+    forjoy_register_page = r"https://forjoytv.com/register"
 
-    driver.get(fuji_register_page)
+    driver.get(forjoy_register_page)
 
     form_input = driver.find_element_by_id("regform")
     email_input = form_input.find_element_by_css_selector("input[name=account]")
@@ -125,17 +125,17 @@ def fuji_register(driver, email_address, password, hide):
 
 
 def run(driver, use_hidden, open_login):
-    """Calls other functions; creates the account on Fuji and confirms email."""
+    """Calls other functions; creates the account on ForJoyTV and confirms email."""
 
     # create credentials
     username, password = generate(name_length=randint(3, 6))
     email_handle, mailinator_account_url = f"{username}@mailinator.com", \
         f"https://www.mailinator.com/v2/inbox.jsp?zone=public&query={username}"
 
-    # Register for Fuji
-    fuji_register(driver, email_handle, password, use_hidden)
+    # Register for ForJoyTV
+    forjoy_register(driver, email_handle, password, use_hidden)
 
-    # Confirm Email from Fuji on Mailinator
+    # Confirm Email from ForJoyTV on Mailinator
     confirmed_email = confirm_email(driver, mailinator_account_url, use_hidden)
 
     if confirmed_email:
@@ -144,15 +144,15 @@ def run(driver, use_hidden, open_login):
         print(password)
         if open_login:
             import webbrowser
-            webbrowser.open_new_tab("https://fujitv.live/logon")
+            webbrowser.open_new_tab("https://forjoytv.com/logon")
     else:
         print("Failed to confirm email.")
 
 
 def get_options():
     """Gets options from user"""
-    parser = argparse.ArgumentParser(description="Creates an account on Fujitv.live.")
-    parser.add_argument("--hidden", help="Hide the ChromeDriver.", action="store_true")
+    parser = argparse.ArgumentParser(description="Creates an account on ForJoyTV.")
+    parser.add_argument("-H", "--hidden", help="Hide the ChromeDriver.", action="store_true")
     parser.add_argument("-o", "--open-logon", help="Open the login page.", action="store_true")
     parser.add_argument("-c", "--chromedriver-path", help="Provides the location of ChromeDriver. Should probably be the full path.")
     args = parser.parse_args()

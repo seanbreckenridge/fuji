@@ -1,27 +1,25 @@
 # fuji
-Creates a free trial account on [Fujitv.live](https://fujitv.live/) that lasts a day so I don't have to.
+Creates a free trial account on [ForJoyTV](https://forjoytv.com/) (previously known as Fuji).
 
 `short_alpha_words.txt` is an edited version of [dwyl/english-words/words_alpha](https://github.com/dwyl/english-words/blob/master/words_alpha.zip), only containing words under 10 characters long.
 
-I'm not in any way affiliated with Fujitv.live.
-
 ```
-usage: driver.py [-h] [--hidden] [-o] [-c CHROMEDRIVER_PATH]
+usage: driver.py [-h] [-H] [-o] [-c CHROMEDRIVER_PATH]
 
-Creates an account on Fujitv.live.
+Creates an account on ForJoyTV.
 
 optional arguments:
   -h, --help            show this help message and exit
-  --hidden              Hide the ChromeDriver.
+  -H, --hidden          Hide the ChromeDriver.
   -o, --open-logon      Open the login page.
   -c CHROMEDRIVER_PATH, --chromedriver-path CHROMEDRIVER_PATH
                         Provides the location of ChromeDriver. Should probably
                         be the full path.
 ```
 
-An example execution, that hides selenium and opens the login page after completion: 
+An example execution, that hides selenium and opens the login page after completion:
 
-`python3 driver.py --hidden -oc /usr/local/bin/chromedriver`
+`python3 driver.py -oHc /usr/local/bin/chromedriver`
 
 Output:
 
@@ -36,7 +34,7 @@ UngyveLugVentersPelotaGogos518@mailinator.com
 
 For Windows, download ChromeDriver from [here](https://sites.google.com/a/chromium.org/chromedriver/downloads), and put the path on command line (escape backslashes):
 
-`python3 driver.py --hidden -oc C:\\temp\\chromedriver.exe`
+`python3 driver.py -c C:\\temp\\chromedriver.exe`
 
 ---
 
@@ -48,6 +46,6 @@ ChromeDriver location should be `/usr/local/bin/chromedriver` if installed with 
 
 Mac with [brew](https://brew.sh/):
 
-`sudo brew install chromedriver`
+`brew install chromedriver`
 
 Located at `/usr/local/bin/chromedriver`
