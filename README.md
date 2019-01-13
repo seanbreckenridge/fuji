@@ -1,5 +1,7 @@
 # fuji
-Creates a free trial account on [ForJoyTV](https://forjoytv.com/) (previously known as Fuji).
+Creates a free trial account on [ForJoyTV](https://forjoytv.com/) (previously known as Fuji). 
+
+### Note as ForJoy has stopped accepting free trials, this does not work anymore.
 
 `short_alpha_words.txt` is an edited version of [dwyl/english-words/words_alpha](https://github.com/dwyl/english-words/blob/master/words_alpha.zip), only containing words under 10 characters long.
 
